@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Del Valle Green LLC</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; color: #1a1a1a; }
+    nav { background: #1a4a1a; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    nav .logo { color: white; font-size: 1.5rem; font-weight: bold; }
+    nav a { color: #c8e6c9; text-decoration: none; margin-left: 25px; font-size: 0.95rem; }
+    nav a:hover { color: white; }
+    .hero { background: linear-gradient(135deg, #1a4a1a 0%, #2d7a2d 100%); color: white; text-align: center; padding: 120px 20px; }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.3rem; opacity: 0.9; margin-bottom: 35px; }
+    .btn { background: #fff; color: #1a4a1a; padding: 15px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1rem; }
+    .section { padding: 80px 40px; text-align: center; }
+    .section.gray { background: #f9f9f9; }
+    .section h2 { font-size: 2.2rem; color: #1a4a1a; margin-bottom: 50px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+    .card { background: white; border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .card .icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .card h3 { color: #1a4a1a; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .gallery-item { background: linear-gradient(135deg, #2d7a2d, #4caf50); border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+    .reviews { background: #1a4a1a; color: white; padding: 80px 40px; text-align: center; }
+    .reviews h2 { font-size: 2.2rem; margin-bottom: 50px; }
+    .review-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: left; }
+    .stars { color: #ffd700; font-size: 1.3rem; margin-bottom: 10px; }
+    .review-card .name { margin-top: 15px; font-weight: bold; opacity: 0.7; }
+    form { max-width: 550px; margin: 0 auto; }
+    form input, form textarea { width: 100%; padding: 14px 18px; margin-bottom: 18px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
+    form textarea { height: 140px; resize: vertical; }
+    form button { background: #1a4a1a; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; width: 100%; }
+    .contact-info { margin-bottom: 40px; font-size: 1.1rem; color: #1a4a1a; }
+    .contact-info a { color: #1a4a1a; text-decoration: none; display: block; margin: 8px 0; }
+    footer { background: #0d2e0d; color: #a5d6a7; text-align: center; padding: 25px; font-size: 0.9rem; }
+
+    /* ===== WHATSAPP WIDGET ===== */
+    .wa-widget { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .wa-popup { background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); padding: 16px; width: 240px; transform: scale(0.85) translateY(10px); transform-origin: bottom right; opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    .wa-popup.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+    .wa-popup-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+    .wa-popup-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #25D366, #128C7E); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .wa-popup-info strong { display: block; font-size: 13.5px; color: #111; font-weight: 700; }
+    .wa-popup-info span { font-size: 11.5px; color: #888; }
+    .wa-number-btn { display: flex; align-items: center; gap: 10px; background: #f6fdf8; border: 1.5px solid #e0f5e9; border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; cursor: pointer; text-decoration: none; transition: background 0.2s, border-color 0.2s, transform 0.15s; }
+    .wa-number-btn:last-child { margin-bottom: 0; }
+    .wa-number-btn:hover { background: #e6f9ed; border-color: #25D366; transform: translateX(-3px); }
+    .wa-number-icon { width: 32px; height: 32px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wa-number-icon svg { width: 17px; height: 17px; fill: white; }
+    .wa-number-text strong { display: block; font-size: 12px; color: #111; font-weight: 700; }
+    .wa-number-text span { font-size: 11px; color: #666; }
+    .wa-fab { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(145deg, #25D366, #128C7E); box-shadow: 0 6px 20px rgba(37,211,102,0.45); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s; position: relative; }
+    .wa-fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,0.55); }
+    .wa-fab svg { width: 30px; height: 30px; fill: white; transition: transform 0.3s ease, opacity 0.2s; }
+    .wa-fab .icon-close { position: absolute; opacity: 0; transform: rotate(-90deg) scale(0.5); }
+    .wa-fab.open .icon-wa { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    .wa-fab.open .icon-close { opacity: 1; transform: rotate(0deg) scale(1); }
+    .wa-fab::before { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(37,211,102,0.3); animation: waPulse 2.5s ease-out infinite; }
+    @keyframes waPulse { 0% { transform: scale(1); opacity: 0.7; } 70% { transform: scale(1.7); opacity: 0; } 100% { transform: scale(1.7); opacity: 0; } }
+
+    /* ===== EMAIL FLOTANTE ===== */
+    .email-fab-wrap { position: fixed; bottom: 100px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .email-toast { background: #fff; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); padding: 12px 16px; font-size: 13px; color: #1a4a1a; font-weight: 600; white-space: nowrap; transform: scale(0.85) translateY(6px); transform-origin: bottom right; opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    .email-toast.open { transform: scale(1) translateY(0); opacity: 1; }
+    .email-fab { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(145deg, #1a4a1a, #2d7a2d); box-shadow: 0 6px 20px rgba(26,74,26,0.45); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, box-shadow 0.2s; font-size: 26px; }
+    .email-fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(26,74,26,0.55); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌿 Del Valle Green LLC</div>
+  <div>
+    <a href="#services">Servicios</a>
+    <a href="#gallery">Galería</a>
+    <a href="#reviews">Reseñas</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Del Valle Green LLC</h1>
+  <p>Transformamos tu jardín en un paraíso verde 🌱</p>
+  <a href="#contact" class="btn">Solicita una Cotización</a>
+</section>
+
+<section class="section gray" id="services">
+  <h2>Nuestros Servicios</h2>
+  <div class="grid-3">
+    <div class="card"><div class="icon">✂️</div><h3>Poda y Mantenimiento</h3></div>
+    <div class="card"><div class="icon">🌱</div><h3>Siembra y Plantación</h3></div>
+    <div class="card"><div class="icon">🏡</div><h3>Diseño de Jardines</h3></div>
+    <div class="card"><div class="icon">💧</div><h3>Sistemas de Riego</h3></div>
+    <div class="card"><div class="icon">🍂</div><h3>Limpieza de Jardines</h3></div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <h2>Galería de Trabajos</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">🌳</div>
+    <div class="gallery-item">🌺</div>
+    <div class="gallery-item">🏡</div>
+    <div class="gallery-item">🌿</div>
+    <div class="gallery-item">🌻</div>
+    <div class="gallery-item">🍃</div>
+  </div>
+  <p style="margin-top:30px; color:#666;">¡Pronto añadiremos fotos de nuestros proyectos!</p>
+</section>
+
+<section class="reviews" id="reviews">
+  <h2>Lo Que Dicen Nuestros Clientes</h2>
+  <div class="grid-3">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Excelente trabajo, dejaron mi jardín perfecto. Muy profesionales y puntuales."</p>
+      <div class="name">— María G.</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Increíble servicio. Mi patio nunca había lucido tan bien. Los recomiendo al 100%."</p>
+      <div class="name">— Carlos R.</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Precios justos y trabajo de calidad. Del Valle Green es mi empresa de confianza."</p>
+      <div class="name">— Ana M.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section gray" id="contact">
+  <h2>Contáctanos</h2>
+  <div class="contact-info">
+    <a href="tel:5029992319">📱 502 999 2319</a>
+    <div style="height:4px"></div>
+    <a href="tel:7195888126">📱 719 588 8126</a>
+    <div style="height:4px"></div>
+    <a href="mailto:delvallegllc@gmail.com">📧 delvallegllc@gmail.com</a>
+  </div>
+  <form onsubmit="enviarFormulario(event)">
+    <input type="text" id="nombre" placeholder="Tu Nombre" required />
+    <input type="email" id="correo" placeholder="Tu Correo Electrónico" required />
+    <input type="tel" id="telefono" placeholder="Tu Teléfono" />
+    <textarea id="mensaje" placeholder="¿En qué podemos ayudarte?"></textarea>
+    <button type="submit">Enviar Mensaje 🌿</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 Del Valle Green LLC — Todos los derechos reservados | 📱 502 999 2319 | 719 588 8126 | delvallegllc@gmail.com</p>
+</footer>
+
+<!-- ===== BOTÓN FLOTANTE DE CORREO ===== -->
+<div class="email-fab-wrap" id="emailFabWrap">
+  <div class="email-toast" id="emailToast">✅ delvallegllc@gmail.com — ¡Copiado!</div>
+  <button class="email-fab" onclick="copiarCorreo()" title="Copiar correo">✉️</button>
+</div>
+
+<!-- ===== BOTÓN FLOTANTE DE WHATSAPP ===== -->
+<div class="wa-widget" id="waWidget">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <div class="wa-popup-avatar">🌿</div>
+      <div class="wa-popup-info">
+        <strong>Del Valle Green LLC</strong>
+        <span>Responde en minutos</span>
+      </div>
+    </div>
+    <a class="wa-number-btn"
+       href="https://wa.me/15029992319?text=Hola%2C%20me%20interesa%20una%20cotizaci%C3%B3n%20de%20Del%20Valle%20Green"
+       target="_blank" rel="noopener">
+      <div class="wa-number-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L0 24l6.335-1.508A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.028-1.385l-.36-.214-3.732.889.924-3.638-.235-.374A9.77 9.77 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      </div>
+      <div class="wa-number-text">
+        <strong>502-999-2319</strong>
+        <span>Línea principal</span>
+      </div>
+    </a>
+    <a class="wa-number-btn"
+       href="https://wa.me/17195888126?text=Hola%2C%20me%20interesa%20una%20cotizaci%C3%B3n%20de%20Del%20Valle%20Green"
+       target="_blank" rel="noopener">
+      <div class="wa-number-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L0 24l6.335-1.508A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.028-1.385l-.36-.214-3.732.889.924-3.638-.235-.374A9.77 9.77 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      </div>
+      <div class="wa-number-text">
+        <strong>719-588-8126</strong>
+        <span>Línea secundaria</span>
+      </div>
+    </a>
+  </div>
+  <button class="wa-fab" id="waFab" onclick="toggleWa()">
+    <svg class="icon-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.858L0 24l6.335-1.508A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.028-1.385l-.36-.214-3.732.889.924-3.638-.235-.374A9.77 9.77 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+  </button>
+</div>
+
+<script>
+  // ===== WHATSAPP TOGGLE =====
+  function toggleWa() {
+    const popup = document.getElementById('waPopup');
+    const fab   = document.getElementById('waFab');
+    popup.classList.toggle('open');
+    fab.classList.toggle('open');
+  }
+
+  // Cerrar popup al hacer clic fuera
+  document.addEventListener('click', function(e) {
+    const widget = document.getElementById('waWidget');
+    if (!widget.contains(e.target)) {
+      document.getElementById('waPopup').classList.remove('open');
+      document.getElementById('waFab').classList.remove('open');
+    }
+  });
+
+  // ===== COPIAR CORREO =====
+  function copiarCorreo() {
+    const email = 'delvallegllc@gmail.com';
+    navigator.clipboard.writeText(email).then(function() {
+      const toast = document.getElementById('emailToast');
+      toast.classList.add('open');
+      setTimeout(function() { toast.classList.remove('open'); }, 2500);
+    }).catch(function() {
+      // Fallback para navegadores sin clipboard API
+      const toast = document.getElementById('emailToast');
+      toast.classList.add('open');
+      setTimeout(function() { toast.classList.remove('open'); }, 2500);
+    });
+  }
+
+  // ===== FORMULARIO =====
+  function enviarFormulario(e) {
+    e.preventDefault();
+    const nombre  = document.getElementById('nombre').value;
+    const correo  = document.getElementById('correo').value;
+    const telefono = document.getElementById('telefono').value;
+    const mensaje = document.getElementById('mensaje').value;
+    const body    = encodeURIComponent(
+      'Nombre: ' + nombre + '\nCorreo: ' + correo +
+      '\nTeléfono: ' + telefono + '\nMensaje: ' + mensaje
+    );
+    window.location.href = 'mailto:delvallegllc@gmail.com?subject=Cotización%20Del%20Valle%20Green&body=' + body;
+  }
+</script>
+
+</body>
+</html>
