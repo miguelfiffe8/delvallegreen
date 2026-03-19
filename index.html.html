@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Del Valle Green LLC</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; color: #1a1a1a; }
+    nav { background: #1a4a1a; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    nav .logo { color: white; font-size: 1.5rem; font-weight: bold; }
+    nav a { color: #c8e6c9; text-decoration: none; margin-left: 25px; font-size: 0.95rem; }
+    nav a:hover { color: white; }
+    .hero { background: linear-gradient(135deg, #1a4a1a 0%, #2d7a2d 100%); color: white; text-align: center; padding: 120px 20px; }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.3rem; opacity: 0.9; margin-bottom: 35px; }
+    .btn { background: #fff; color: #1a4a1a; padding: 15px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1rem; }
+    .section { padding: 80px 40px; text-align: center; }
+    .section.gray { background: #f9f9f9; }
+    .section h2 { font-size: 2.2rem; color: #1a4a1a; margin-bottom: 50px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+    .card { background: white; border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .card .icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .card h3 { color: #1a4a1a; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .gallery-item { background: linear-gradient(135deg, #2d7a2d, #4caf50); border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+    .reviews { background: #1a4a1a; color: white; padding: 80px 40px; text-align: center; }
+    .reviews h2 { font-size: 2.2rem; margin-bottom: 50px; }
+    .review-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: left; }
+    .stars { color: #ffd700; font-size: 1.3rem; margin-bottom: 10px; }
+    .review-card .name { margin-top: 15px; font-weight: bold; opacity: 0.7; }
+    form { max-width: 550px; margin: 0 auto; }
+    form input, form textarea { width: 100%; padding: 14px 18px; margin-bottom: 18px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
+    form textarea { height: 140px; resize: vertical; }
+    form button { background: #1a4a1a; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; width: 100%; }
+    .contact-info { margin-bottom: 40px; font-size: 1.1rem; color: #1a4a1a; }
+    .contact-info a { color: #1a4a1a; text-decoration: none; display: block; margin: 8px 0; }
+    footer { background: #0d2e0d; color: #a5d6a7; text-align: center; padding: 25px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌿 Del Valle Green LLC</div>
+  <div>
+    <a href="#services">Servicios</a>
+    <a href="#gallery">Galería</a>
+    <a href="#reviews">Reseñas</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Del Valle Green LLC</h1>
+  <p>Transformamos tu jardín en un paraíso verde 🌱</p>
+  <a href="#contact" class="btn">Solicita una Cotización</a>
+</section>
+
+<section class="section gray" id="services">
+  <h2>Nuestros Servicios</h2>
+  <div class="grid-3">
+    <div class="card"><div class="icon">✂️</div><h3>Poda y Mantenimiento</h3></div>
+    <div class="card"><div class="icon">🌱</div><h3>Siembra y Plantación</h3></div>
+    <div class="card"><div class="icon">🏡</div><h3>Diseño de Jardines</h3></div>
+    <div class="card"><div class="icon">💧</div><h3>Sistemas de Riego</h3></div>
+    <div class="card"><div class="icon">🍂</div><h3>Limpieza de Jardines</h3></div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <h2>Galería de Trabajos</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">🌳</div>
+    <div class="gallery-item">🌺</div>
+    <div class="gallery-item">🏡</div>
+    <div class="gallery-item">🌿</div>
+    <div class="gallery-item">🌻</div>
+    <div class="gallery-item">🍃</div>
+  </div>
+  <p style="margin-top:30px; color:#666;">¡Pronto añadiremos fotos de nuestros proyectos!</p>
+</section>
+
+<section class="reviews" id="reviews">
+  <h2>Lo Que Dicen Nuestros Clientes</h2>
+  <div class="grid-3">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Excelente trabajo, dejaron mi jardín perfecto. Muy profesionales y puntuales."</p>
+      <div class="name">— María G.</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Increíble servicio. Mi patio nunca había lucido tan bien. Los recomiendo al 100%."</p>
+      <div class="name">— Carlos R.</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Precios justos y trabajo de calidad. Del Valle Green es mi empresa de confianza."</p>
+      <div class="name">— Ana M.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section gray" id="contact">
+  <h2>Contáctanos</h2>
+  <div class="contact-info">
+    <a href="tel:5029992319">📱 502 999 2319</a>
+    <a href="tel:7195888126">📱 719 588 8126</a>
+    <a href="mailto:delvallegllc@gmail.com">📧 delvallegllc@gmail.com</a>
+  </div>
+  <form>
+    <input type="text" placeholder="Tu Nombre" required />
+    <input type="email" placeholder="Tu Correo Electrónico" required />
+    <input type="tel" placeholder="Tu Teléfono" />
+    <textarea placeholder="¿En qué podemos ayudarte?"></textarea>
+    <button type="submit">Enviar Mensaje 🌿</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 Del Valle Green LLC — Todos los derechos reservados</p>
+  <p style="margin-top:8px;">📱 502 999 2319 | 719 588 8126 | delvallegllc@gmail.com</p>
+</footer>
+
+</body>
+</html>
