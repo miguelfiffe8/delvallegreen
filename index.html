@@ -222,15 +222,14 @@
     addMessage(texto, 'user');
     historial.push({ role: 'user', content: texto });
     const typing = addMessage('Escribiendo...', 'bot typing');
-
+const res = await fetch('https://delvallegreen-api.miguelfiffe8.workers.dev', {
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+    
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': API_KEY,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
+    
+    
         },
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
