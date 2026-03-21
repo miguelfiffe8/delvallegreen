@@ -235,13 +235,14 @@ Responde siempre en espanol y en maximo 3 oraciones.`,
         })
       });
       const data = await res.json();
-      const respuesta = data.content[0].text;
+     if (data.error) throw new Error(data.error.message);
+const respuesta = data.content[0].text;
       historial.push({ role: 'assistant', content: respuesta });
       typing.remove();
       addMessage(respuesta, 'bot');
     } catch (e) {
       typing.remove();
-      addMessage('Lo siento, hubo un error. Llamanos al (502) 999-2319.', 'bot');
+      addMessage('Error: ' + e.message, 'bot');
     }
   }
 
