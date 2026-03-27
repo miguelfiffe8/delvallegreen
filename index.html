@@ -81,6 +81,23 @@
     .breakdown-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
     .btn-calc-primary { background: #76ff03; color: #1a2e1a; border: none; border-radius: 12px; padding: 15px; width: 100%; font-weight: 700; cursor: pointer; font-size: 16px; margin-bottom: 10px; }
     
+    /* ── Estilos del Chat Bot y WhatsApp ── */
+    .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; align-items: center; gap: 10px; text-decoration: none; animation: pulse 2s infinite; }
+    .whatsapp-float .wa-bubble { background: #25D366; color: white; border-radius: 50%; width: 62px; height: 62px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(37,211,102,0.5); font-size: 2rem; }
+    .whatsapp-float .wa-label { background: #25D366; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; box-shadow: 0 4px 12px rgba(37,211,102,0.4); white-space: nowrap; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    
+    #chat-btn { position: fixed; bottom: 110px; right: 30px; z-index: 9998; background: #1a4a1a; color: white; border: none; border-radius: 50px; padding: 14px 22px; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; }
+    #chat-window { position: fixed; bottom: 180px; right: 30px; z-index: 9997; width: 340px; background: white; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; max-height: 480px; }
+    #chat-header { background: #1a4a1a; color: white; padding: 16px 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+    #chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 280px; max-height: 280px; }
+    .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; }
+    .msg.bot { background: #f0f7f0; color: #1a1a1a; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .msg.user { background: #1a4a1a; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+    #chat-input-area { display: flex; border-top: 1px solid #eee; padding: 10px; gap: 8px; }
+    #chat-input { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 14px; font-size: 0.9rem; outline: none; }
+    #chat-send { background: #1a4a1a; color: white; border: none; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; }
+
     /* ── Continuación de estilos web ── */
     .reviews { background: #1a4a1a; color: white; padding: 80px 40px; text-align: center; }
     .review-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: left; }
@@ -88,13 +105,13 @@
     form { max-width: 550px; margin: 0 auto; }
     form input, form textarea { width: 100%; padding: 14px 18px; margin-bottom: 18px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
     form button { background: #1a4a1a; color: white; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; width: 100%; }
-    .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .whatsapp-float .wa-bubble { background: #25D366; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
     
     @media (max-width: 600px) {
       .hero h1 { font-size: 2.2rem; }
       nav { padding: 15px 20px; flex-direction: column; gap: 10px; }
       .services-grid { grid-template-columns: 1fr; }
+      .whatsapp-float .wa-label { display: none; }
+      #chat-window { width: 95vw; right: 2.5vw; }
     }
   </style>
 </head>
@@ -235,11 +252,26 @@
   <p>© 2025 Del Valle Green LLC · All rights reserved</p>
 </footer>
 
+<!-- CHAT BOT Y WHATSAPP -->
+<button id="chat-btn">💬 Chat with us</button>
+<div id="chat-window">
+  <div id="chat-header">Del Valle Green <span>Online</span> <button id="chat-close">×</button></div>
+  <div id="chat-messages">
+    <div class="msg bot">Hello! How can we help you today? 🌱</div>
+  </div>
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Write a message...">
+    <button id="chat-send">➤</button>
+  </div>
+</div>
+
 <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank">
+  <div class="wa-label">WhatsApp us!</div>
   <div class="wa-bubble">💬</div>
 </a>
 
 <script>
+  // ── Funcionalidad Calculadora ──
   let unit = 'acres';
   let frequency = 'one';
   let services = { edges: false, blowing: false };
@@ -279,13 +311,10 @@
     const raw = parseFloat(document.getElementById('areaSlider').value);
     const acres = cfg.toAcres(raw);
     const disc = (frequency !== 'one') ? 0.9 : 1;
-    
     document.getElementById('areaDisplay').textContent = unit === 'acres' ? acres.toFixed(2) : Math.round(raw).toLocaleString();
-    
     let min = pricing.mow.min * acres;
     let max = pricing.mow.max * acres;
     let html = `<div class="breakdown-row"><span>🌿 Mowing</span><span>$${Math.round(min*disc)} - $${Math.round(max*disc)}</span></div>`;
-    
     Object.entries(services).forEach(([key, active]) => {
       if(active) {
         const sMin = pricing[key].min * acres;
@@ -294,7 +323,6 @@
         html += `<div class="breakdown-row"><span>+ ${key}</span><span>$${Math.round(sMin*disc)} - $${Math.round(sMax*disc)}</span></div>`;
       }
     });
-
     document.getElementById('minPrice').textContent = Math.round(min * disc).toLocaleString();
     document.getElementById('maxPrice').textContent = Math.round(max * disc).toLocaleString();
     document.getElementById('breakdown').innerHTML = html;
@@ -308,6 +336,35 @@
     document.querySelectorAll('.service-item').forEach(el => el.classList.remove('selected'));
     updateCalc();
   }
+
+  // ── Funcionalidad Chat Bot ──
+  const chatBtn = document.getElementById('chat-btn');
+  const chatWindow = document.getElementById('chat-window');
+  const chatClose = document.getElementById('chat-close');
+  const chatSend = document.getElementById('chat-send');
+  const chatInput = document.getElementById('chat-input');
+  const chatMessages = document.getElementById('chat-messages');
+
+  chatBtn.onclick = () => chatWindow.style.display = 'flex';
+  chatClose.onclick = () => chatWindow.style.display = 'none';
+  
+  function addMsg(text, type) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.textContent = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  chatSend.onclick = () => {
+    const val = chatInput.value.trim();
+    if(!val) return;
+    addMsg(val, 'user');
+    chatInput.value = '';
+    setTimeout(() => addMsg("Thanks for your message! A member of Del Valle Green will contact you soon. 🌱", 'bot'), 1000);
+  };
+
+  chatInput.onkeypress = (e) => { if(e.key === 'Enter') chatSend.click(); };
 
   updateCalc();
 </script>
